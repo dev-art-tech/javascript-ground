@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Dynamic Complex table</title>
+        <style>
+            table {
+                width:100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Dynamic complex table in JavaScript</h1>
+        <div id="table-container"></div>
+        <script>
+            const input = {
+                "headers": ["Range", "Top Speed", "Acceleration to 100 km/h"],
+                "data": {
+                    "Electric car 1": ["400 km", "200 km/h", "6 seconds"],
+                    "Electric car 2": ["300 km", "180 km/h", "8 seconds"]
+                }
+            };
+
+            function createTable(input) {
+                const tbl = document.createElement('table');
+                // Head
+                const trHead = document.createElement('tr');
+                const thEmpty = document.createElement('th');
+                trHead.appendChild(thEmpty);
+                input.headers.forEach(text => {
+                    const td = document.createElement('th');
+                    td.textContent = text;
+                    trHead.appendChild(td);
+                });
+                tbl.appendChild(trHead);
+                // Body
+                for (const car in input.data) {
+                    const trBody = document.createElement('tr');
+                    const thBody = document.createElement('th');
+                    thBody.textContent = car;
+                    trBody.appendChild(thBody);
+                    input.data[car].forEach(text => {
+                        const td = document.createElement('td');
+                        td.textContent = text;
+                        trBody.appendChild(td);
+                    });
+
+                    tbl.appendChild(trBody);
+                }
+                
+
+               
+                return tbl;
+            }
+
+            const tblCntnr = document.getElementById('table-container');
+            const table = createTable(input);
+            tblCntnr.appendChild(table);
+        </script>
+    </body>
+</html>

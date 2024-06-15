@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTf-8">
+        <meta name="viewport" content="width=device-width,
+        inital-scale=1.0">
+        <title>Dynamic simple table</title>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Dynamic table in JavaScript</h1>
+        <div id="table-container"></div>
+        <script>
+            const data = [
+                { name: "John", age: 28, city: "New York" },
+                { name: "Anna", age: 22, city: "London" },
+                { name: "Mike", age: 32, city: "Chicago" }
+            ];
+
+            function createTable(data) {
+                // table 
+                    // thead -> tr -> th
+                    // tbody -> tr -> td
+                const table = document.createElement('table'); // -> thead
+                const thead = document.createElement('thead'); // -> tr
+                const headerRow = document.createElement('tr'); // -> th
+
+                const headers = ["Name", 'Age', "City"];
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    Object.values(item).forEach(text => {
+                        const td = document.createElement('td');
+                        td.textContent = text;
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                table.appendChild(tbody);
+                return table;
+            }
+
+            const tableContainer = document.getElementById('table-container');
+            const table = createTable(data);
+
+            tableContainer.appendChild(table);
+        </script>
+    </body>
+</html>
